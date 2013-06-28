@@ -1,9 +1,13 @@
 
+
 public class HotelReservation {
 
+	private static final String[] weekDays = new String[]{"mon", "tues", "wed", "thur", "fri"};
+	
 	public String reserve(String customerAndDates) {
-		if (customerAndDates.contains("mon"))
-			return "Lakewood";
+		for (String weekDay : weekDays)
+			if (customerAndDates.contains(weekDay))
+				return "Lakewood";
 		
 		if (customerAndDates.startsWith("Rewards:"))
 			return "Ridgewood";

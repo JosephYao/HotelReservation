@@ -25,6 +25,10 @@ public class TestHotelReservation {
 	@Test
 	public void rewards_customer_reserve_one_weekday() {
 		assertReservedHotelEquals("Lakewood", "Rewards: 24Jun2013(mon)");
+		assertReservedHotelEquals("Lakewood", "Rewards: 25Jun2013(tues)");
+		assertReservedHotelEquals("Lakewood", "Rewards: 26Jun2013(wed)");
+		assertReservedHotelEquals("Lakewood", "Rewards: 27Jun2013(thur)");
+		assertReservedHotelEquals("Lakewood", "Rewards: 28Jun2013(fri)");
 	}
 
 	private void assertReservedHotelEquals(String expectedReservedHotel, String customerAndDates) {
