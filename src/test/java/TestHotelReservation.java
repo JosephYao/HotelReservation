@@ -21,6 +21,11 @@ public class TestHotelReservation {
 	public void rewards_customer_reserve_one_weekend() {
 		assertReservedHotelEquals("Ridgewood", "Rewards: 29Jun2013(sat)");
 	}
+	
+	@Test
+	public void rewards_customer_reserve_one_weekday() {
+		assertReservedHotelEquals("Lakewood", "Rewards: 24Jun2013(mon)");
+	}
 
 	private void assertReservedHotelEquals(String expectedReservedHotel, String customerAndDates) {
 		String actualReservedHotel = hotelReservationHelper.reserve(customerAndDates);
