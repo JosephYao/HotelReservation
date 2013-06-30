@@ -3,10 +3,10 @@
 public class HotelReservation {
 
 	private static final String[] weekDays = new String[]{"mon", "tues", "wed", "thur", "fri"};
-	
+
 	public String reserve(String customerAndDates) {
 		if (isRegularCustomer(customerAndDates) &&
-			customerAndDates.contains("mon") &&
+			getWeekdayCount(customerAndDates) == 1 &&
 			customerAndDates.contains("sat") &&
 			customerAndDates.contains("sun"))
 			return "Bridgewood";
@@ -19,6 +19,16 @@ public class HotelReservation {
 			return "Ridgewood";
 		
 		return "Bridgewood";
+	}
+	
+	private int getWeekdayCount(String customerAndDates) {
+		int count = 0;
+		
+		for (String weekDay : weekDays)
+			if (customerAndDates.contains(weekDay))
+				count++;
+		
+		return count;
 	}
 
 	private boolean isRewardsCustomer(String customerAndDates) {
