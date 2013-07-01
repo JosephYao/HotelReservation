@@ -32,10 +32,15 @@ public class TestHotelReservation {
 	}
 	
 	@Test
-	public void regular_customer_reserve_both_weekday_and_weekend() {
+	public void regular_customer_reserve_both_weekday_and_weekend_within_one_week() {
 		assertReservedHotelEquals("Bridgewood", "Regular: 24Jun2013(mon), 29Jun2013(sat), 30Jun2013(sun)");
 		assertReservedHotelEquals("Lakewood", "Regular: 24Jun2013(mon), 25Jun2013(tues), 29Jun2013(sat), 30Jun2013(sun)");
 		assertReservedHotelEquals("Bridgewood", "Regular: 25Jun2013(tues), 29Jun2013(sat), 30Jun2013(sun)");
+	}
+	
+	@Test
+	public void regular_customer_reserve_both_weekday_and_weekend_within_two_weeks() {
+		assertReservedHotelEquals("Bridgewood", "Regular: 25Jun2013(tues), 29Jun2013(sat), 6Jul2013(sat)");
 	}
 	
 	private void assertReservedHotelEquals(String expectedReservedHotel, String customerAndDates) {
