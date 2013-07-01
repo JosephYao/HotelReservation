@@ -1,4 +1,3 @@
-import java.util.regex.Pattern;
 
 
 
@@ -23,15 +22,12 @@ public class HotelReservation {
 	}
 	
 	private int getWeekendCount(String customerAndDates) {
-		int count = 0;
-		
-		if (customerAndDates.contains("sat"))
-			count += customerAndDates.split("sat").length - 1;
-		
-		if (customerAndDates.contains("sun"))
-			count++;
-		
-		return count;
+		return weekendCount(customerAndDates, "sat") + 
+			   weekendCount(customerAndDates, "sun");
+	}
+
+	private int weekendCount(String customerAndDates, String weekendStr) {
+		return customerAndDates.split(weekendStr).length - 1;
 	}
 
 	private int getWeekdayCount(String customerAndDates) {
