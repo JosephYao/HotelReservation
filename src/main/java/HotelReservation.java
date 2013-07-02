@@ -1,12 +1,10 @@
 import java.util.HashMap;
 import java.util.Map;
 
-
-
-
 public class HotelReservation {
 
-	private static final String[] WEEK_DAYS = new String[]{"mon", "tues", "wed", "thur", "fri"};
+	private static final String[] WEEKDAYS = new String[]{"mon", "tues", "wed", "thur", "fri"};
+	private static final String[] WEEKENDS = new String[]{"sat", "sun"};
 	
 	private static final Map<String, Integer> REGULAR_CUSTOMER_RATE = new HashMap<String, Integer>() {{
 		put("Lakewood", 110);
@@ -19,51 +17,41 @@ public class HotelReservation {
 	}};
 	
 	public String reserve(String customerAndDates) {
-		if (isRegularCustomer(customerAndDates) &&
+		if (isCustomer(customerAndDates, "Regular") &&
 			hotelPrice(customerAndDates, "Lakewood") > 
 			hotelPrice(customerAndDates, "Bridgewood"))
 			return "Bridgewood";
 		
-		for (String weekDay : WEEK_DAYS)
+		for (String weekDay : WEEKDAYS)
 			if (customerAndDates.contains(weekDay))
 				return "Lakewood";
 		
-		if (isRewardsCustomer(customerAndDates))
+		if (isCustomer(customerAndDates, "Rewards"))
 			return "Ridgewood";
 		
 		return "Bridgewood";
 	}
 
 	private int hotelPrice(String customerAndDates, String hotel) {
-		return getWeekdayCount(customerAndDates) * REGULAR_CUSTOMER_RATE.get(hotel) + 
-			   getWeekendCount(customerAndDates) * REWARDS_CUSTOMER_RATE.get(hotel);
+		return allDayCount(customerAndDates, WEEKDAYS) * REGULAR_CUSTOMER_RATE.get(hotel) + 
+			   allDayCount(customerAndDates, WEEKENDS) * REWARDS_CUSTOMER_RATE.get(hotel);
 	}
 	
-	private int getWeekendCount(String customerAndDates) {
-		return weekendCount(customerAndDates, "sat") + 
-			   weekendCount(customerAndDates, "sun");
-	}
-
-	private int weekendCount(String customerAndDates, String weekendStr) {
-		return customerAndDates.split(weekendStr).length - 1;
-	}
-
-	private int getWeekdayCount(String customerAndDates) {
+	private int allDayCount(String customerAndDates, String[] days) {
 		int count = 0;
 		
-		for (String weekDay : WEEK_DAYS)
-			if (customerAndDates.contains(weekDay))
-				count++;
+		for (String day : days)
+			count += oneDayCount(customerAndDates, day);
 		
 		return count;
 	}
 
-	private boolean isRewardsCustomer(String customerAndDates) {
-		return customerAndDates.startsWith("Rewards");
+	private int oneDayCount(String customerAndDates, String weekendStr) {
+		return customerAndDates.split(weekendStr).length - 1;
 	}
-
-	private boolean isRegularCustomer(String customerAndDates) {
-		return customerAndDates.startsWith("Regular");
+	
+	private boolean isCustomer(String customerAndDates, String customerType) {
+		return customerAndDates.startsWith(customerType);
 	}
 
 }

@@ -36,6 +36,7 @@ public class TestHotelReservation {
 		assertReservedHotelEquals("Bridgewood", "Regular: 24Jun2013(mon), 29Jun2013(sat), 30Jun2013(sun)");
 		assertReservedHotelEquals("Lakewood", "Regular: 24Jun2013(mon), 25Jun2013(tues), 29Jun2013(sat), 30Jun2013(sun)");
 		assertReservedHotelEquals("Bridgewood", "Regular: 25Jun2013(tues), 29Jun2013(sat), 30Jun2013(sun)");
+		assertReservedHotelEquals("Lakewood", "Regular: 24Jun2013(mon), 1Jul2013(mon), 29Jun2013(sat), 30Jun2013(sun)");
 	}
 	
 	@Test
