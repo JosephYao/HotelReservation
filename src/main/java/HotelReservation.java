@@ -21,25 +21,36 @@ public class HotelReservation {
 		put(HOTEL_BRIDGEWOOD, 60);
 	}};
 	
+	private static final Map<String, Integer> REWARDS_CUSTOMER_WEEKDAY_RATE = new HashMap<String, Integer>() {{
+		put(HOTEL_LAKEWOOD, 80);
+		put(HOTEL_RIDGEWOOD, 100);
+	}};
+	
+	private static final Map<String, Integer> REWARDS_CUSTOMER_WEEKEND_RATE = new HashMap<String, Integer>() {{
+		put(HOTEL_LAKEWOOD, 80);
+		put(HOTEL_RIDGEWOOD, 40);
+	}};
+	
 	public String reserve(String customerAndDates) {
 		if (isCustomer(customerAndDates, CUSTOMER_REGULAR) &&
-			hotelPrice(customerAndDates, HOTEL_LAKEWOOD) > 
-			hotelPrice(customerAndDates, HOTEL_BRIDGEWOOD))
+			hotelPriceForRegular(customerAndDates, HOTEL_LAKEWOOD) > 
+			hotelPriceForRegular(customerAndDates, HOTEL_BRIDGEWOOD))
 			return HOTEL_BRIDGEWOOD;
 		
 		if (isCustomer(customerAndDates, CUSTOMER_REWARDS) &&
-			allDayCount(customerAndDates, WEEKDAYS) == 1 &&
-			allDayCount(customerAndDates, WEEKENDS) == 1)
+			hotelPriceForRewards(customerAndDates, HOTEL_LAKEWOOD) >
+			hotelPriceForRewards(customerAndDates, HOTEL_RIDGEWOOD))
 			return HOTEL_RIDGEWOOD;
 		
-		for (String weekDay : WEEKDAYS)
-			if (customerAndDates.contains(weekDay))
-				return HOTEL_LAKEWOOD;
-		
-		return HOTEL_RIDGEWOOD;
+		return HOTEL_LAKEWOOD;
 	}
 
-	private int hotelPrice(String customerAndDates, String hotel) {
+	private int hotelPriceForRewards(String customerAndDates, String hotel) {
+		return allDayCount(customerAndDates, WEEKDAYS) * REWARDS_CUSTOMER_WEEKDAY_RATE.get(hotel) + 
+			   allDayCount(customerAndDates, WEEKENDS) * REWARDS_CUSTOMER_WEEKEND_RATE.get(hotel);
+	}
+	
+	private int hotelPriceForRegular(String customerAndDates, String hotel) {
 		return allDayCount(customerAndDates, WEEKDAYS) * REGULAR_CUSTOMER_WEEKDAY_RATE.get(hotel) + 
 			   allDayCount(customerAndDates, WEEKENDS) * REGULAR_CUSTOMER_WEEKEND_RATE.get(hotel);
 	}
