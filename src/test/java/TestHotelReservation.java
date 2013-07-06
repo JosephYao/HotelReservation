@@ -52,6 +52,16 @@ public class TestHotelReservation {
 		assertReservedHotelEquals("Ridgewood", "Rewards: 24Jun2013(mon), 25Jun2013(tues), 29Jun2013(sat), 30Jun2013(sun)");
 	}
 	
+	@Test
+	public void rewards_customer_get_reserved_hotel_by_rank() {
+		assertReservedHotelEquals("Ridgewood", "Rewards: 24Jun2013(mon), 25Jun2013(tues), 29Jun2013(sat)");
+	}
+	
+	@Test
+	public void regular_customer_get_reserved_hotel_by_rank() {
+		assertReservedHotelEquals("Bridgewood", "Regular: 24Jun2013(mon), 25Jun2013(tues), 26Jun2013(wed), 29Jun2013(sat), 30Jun2013(sun), 6JUl2013(sat), 7Jul2013(sun), 13Jul2013(sat)");
+	}
+	
 	private void assertReservedHotelEquals(String expectedReservedHotel, String customerAndDates) {
 		String actualReservedHotel = hotelReservationHelper.reserve(customerAndDates);
 		assertEquals(expectedReservedHotel, actualReservedHotel);

@@ -27,12 +27,12 @@ public class HotelReservation {
 	
 	public String reserve(String customerAndDates) {
 		if (isCustomer(customerAndDates, CUSTOMER_REGULAR) &&
-			hotelPrice(customerAndDates, HOTEL_LAKEWOOD, CUSTOMER_REGULAR) > 
+			hotelPrice(customerAndDates, HOTEL_LAKEWOOD, CUSTOMER_REGULAR) >= 
 			hotelPrice(customerAndDates, HOTEL_BRIDGEWOOD, CUSTOMER_REGULAR))
 			return HOTEL_BRIDGEWOOD;
 		
 		if (isCustomer(customerAndDates, CUSTOMER_REWARDS) &&
-			hotelPrice(customerAndDates, HOTEL_LAKEWOOD, CUSTOMER_REWARDS) >
+			hotelPrice(customerAndDates, HOTEL_LAKEWOOD, CUSTOMER_REWARDS) >=
 			hotelPrice(customerAndDates, HOTEL_RIDGEWOOD, CUSTOMER_REWARDS))
 			return HOTEL_RIDGEWOOD;
 		
